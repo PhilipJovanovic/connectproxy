@@ -1,4 +1,4 @@
-module github.com/PhilipJovanovic/connectproxy.go
+module github.com/PhilipJovanovic/connectproxy
 
 go 1.16
 
