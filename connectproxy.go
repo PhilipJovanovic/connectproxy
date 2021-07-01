@@ -82,12 +82,14 @@ import (
 	"errors"
 	"fmt"
 	"net"
-	"net/http"
 	"net/url"
 	"time"
 
-	"golang.org/x/net/proxy"
+	http "github.com/PhilipJovanovic/fhttp"
+
 	"encoding/base64"
+
+	"golang.org/x/net/proxy"
 )
 
 func init() {
@@ -247,12 +249,12 @@ func (cd *connectDialer) Dial(network, addr string) (net.Conn, error) {
 	}
 	req.Close = false
 
-	if (len(cd.config.Header) > 0) {
+	if len(cd.config.Header) > 0 {
 		req.Header = cd.config.Header
 	}
 
 	if cd.haveAuth {
-		basicAuth := "Basic " + base64.StdEncoding.EncodeToString([]byte(cd.username + ":" + cd.password))	
+		basicAuth := "Basic " + base64.StdEncoding.EncodeToString([]byte(cd.username+":"+cd.password))
 		req.Header.Add("Proxy-Authorization", basicAuth)
 	}
 

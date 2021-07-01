@@ -24,8 +24,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/PhilipJovanovic/connectproxy"
 	"github.com/gorilla/websocket"
-	"github.com/magisterquis/connectproxy"
 	"golang.org/x/net/proxy"
 )
 
