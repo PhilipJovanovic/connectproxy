@@ -126,6 +126,9 @@ type Config struct {
 	// DialTimeout is an optional timeout for connections through (not to)
 	// the proxy server.
 	DialTimeout time.Duration
+
+	// User-Agent for Connect Stuff
+	UserAgent string
 }
 
 // RegisterDialerFromURL is a convenience wrapper around
@@ -159,8 +162,8 @@ type connectDialer struct {
 // proxy.Dialer for it to make network requests.  New may be passed to
 // proxy.RegisterDialerType for the schemes "http" and "https".  The
 // convenience function RegisterDialerFromURL simplifies this.
-func New(u *url.URL, forward proxy.Dialer) (proxy.Dialer, error) {
-	return NewWithConfig(u, forward, nil)
+func New(u *url.URL, forward proxy.Dialer, config *Config) (proxy.Dialer, error) {
+	return NewWithConfig(u, forward, config)
 }
 
 // NewWithConfig is like New, but allows control over various options.
@@ -251,6 +254,10 @@ func (cd *connectDialer) Dial(network, addr string) (net.Conn, error) {
 
 	if len(cd.config.Header) > 0 {
 		req.Header = cd.config.Header
+	}
+
+	if cd.config.UserAgent != "" {
+		req.Header.Add("User-Agent", "TEST USERAGENT")
 	}
 
 	if cd.haveAuth {
