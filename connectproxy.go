@@ -85,7 +85,8 @@ import (
 	"net/url"
 	"time"
 
-	http "github.com/PhilipJovanovic/fhttp"
+	"net/http"
+	//http "github.com/PhilipJovanovic/fhttp"
 
 	"encoding/base64"
 
